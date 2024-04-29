@@ -21,7 +21,7 @@ const LoadingPage: React.FC = () => {
     if (progress === 100) {
       router.push("/exerciseAnalysis");
     }
-  }, [progress]);
+  }, [progress, router]);
 
   return (
     <div className="flex flex-col items-center mt-20 pt-20 min-h-screen">
