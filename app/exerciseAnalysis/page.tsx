@@ -85,7 +85,7 @@ const VideoAnalysis = () => {
             ))}
           </div>
         </div>
-        {selectedDescription?.length > 0 &&
+        {selectedDescription && selectedDescription.length > 0 &&
           <MyTabs selectedDescription={selectedDescription} />}
         
       </div>
