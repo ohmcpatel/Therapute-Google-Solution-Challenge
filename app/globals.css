@@ -31,3 +31,27 @@ body {
     text-wrap: balance;
   }
 }
+
+.HomePageTopDiv {
+  height: 50vh;
+}
+
+.todaysExersices {
+  font-size: 1.5rem;
+}
+
+.CarouselHolder {
+  width: 300px;
+}
+
+.buttonsCarousel {
+  padding-left: -10px;
+}
+
+.TodayExerciseCard {
+  background-color: '0165e5';
+}
+
+.custom-link {
+  color: black;
+}
