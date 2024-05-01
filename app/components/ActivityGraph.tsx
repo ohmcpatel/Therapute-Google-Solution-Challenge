@@ -1,72 +1,109 @@
 'use client'
+import React, { useEffect, useRef, useState } from 'react';
+import Chart from 'chart.js/auto';
 
-// ActivityGraph.tsx
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-interface ChartData {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    borderColor: string;
-    backgroundColor: string;
-  }[];
+interface ExerciseData {
+  date: string; // Date string in ISO format (e.g., '2024-04-30')
+  count: number; // Number of exercises for the day
 }
 
-interface ActivityGraphProps {
-  data: ChartData;
-}
+const ExerciseGraph: React.FC = () => {
+  const [exerciseData, setExerciseData] = useState<ExerciseData[]>([]);
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Activity',
-    },
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: 'Time'
+  useEffect(() => {
+    // Fetch exercise data for the last 7 days (replace with your own data fetching logic)
+    const fetchData = async () => {
+      try {
+        // Mock data for demonstration purposes
+        const mockData: ExerciseData[] = [
+          { date: '2024-04-24', count: 3 },
+          { date: '2024-04-25', count: 5 },
+          { date: '2024-04-26', count: 4 },
+          { date: '2024-04-27', count: 6 },
+          { date: '2024-04-28', count: 2 },
+          { date: '2024-04-29', count: 7 },
+          { date: '2024-04-30', count: 5 },
+        ];
+        setExerciseData(mockData);
+      } catch (error) {
+        console.error('Error fetching exercise data:', error);
       }
-    },
-    y: {
-      title: {
-        display: true,
-        text: 'Exercises'
+    };
+
+    fetchData();
+  }, []);
+
+  const chartRef = useRef<HTMLCanvasElement>(null);
+  const chartInstanceRef = useRef<Chart>();
+
+  useEffect(() => {
+    if (chartRef.current) {
+      const ctx = chartRef.current.getContext('2d');
+      if (ctx) {
+        if (chartInstanceRef.current) {
+          chartInstanceRef.current.destroy(); // Destroy previous chart instance
+        }
+        chartInstanceRef.current = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: exerciseData.map(data => formatDate(data.date)), // Format date labels
+            datasets: [
+              {
+                label: 'Exercises per Day',
+                data: exerciseData.map(data => data.count), // Exercise count data
+                borderColor: 'rgb(0, 0, 0)', // Black border color
+                tension: 0.1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Date',
+                  color: 'white', // White text color
+                },
+                ticks: {
+                  color: 'white', // White tick color
+                },
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Number of Exercises',
+                  color: 'white', // White text color
+                },
+                ticks: {
+                  color: 'white', // White tick color
+                },
+                beginAtZero: true, // Start y-axis at 0
+              },
+            },
+            plugins: {
+              legend: {
+                position: 'bottom', // Place legend at the bottom
+                labels: {
+                  color: 'white', // White legend label color
+                },
+              },
+            },
+          },
+        });
       }
     }
-  }
+  }, [exerciseData]);
+
+  // Function to format date to mm/dd/yy
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear().toString().slice(2);
+    return `${month}/${day}/${year}`;
+  };
+
+  return <canvas className="w-full mt-5" ref={chartRef}></canvas>;
 };
 
-const ActivityGraph: React.FC<ActivityGraphProps> = ({ data }) => {
-  return <Line options={options} data={data} />;
-};
-
-export default ActivityGraph;
+export default ExerciseGraph;

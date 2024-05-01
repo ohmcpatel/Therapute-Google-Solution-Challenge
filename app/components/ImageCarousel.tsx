@@ -1,58 +1,80 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
+import { useState } from "react";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import "../globals.css"
+interface Slide {
+  name: string;
+  img: string;
+  desc: string;
+}
 
-const data = [
-    {
-        name: 'Deadlift',
-        img: '/deadlift.png',
-        desc: '3 sets'
-    },
-    {
-        name: 'Deadlift',
-        img: '/deadlift.png',
-        desc: '3 sets'
-    },
-    {
-        name: 'Deadlift',
-        img: '/deadlift.png',
-        desc: '3 sets'
-    },
-    {
-        name: 'Deadlift',
-        img: '/deadlift.png',
-        desc: '3 sets'
-    },
-];
+interface CarouselProps {
+  slides: Slide[];
+}
 
-export default function ImageCarousel() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+export default function ImageCarousel({ slides }: CarouselProps) {
+  let [current, setCurrent] = useState(0);
+
+  let previousSlide = () => {
+    if (current === 0) setCurrent(slides.length - 1);
+    else setCurrent(current - 1);
   };
-  return (
-    <div className='w-3/4 m-auto'>
-      <div className="mt-20">
-      <Slider {...settings}>
-        {data.map((d) => (
-          <div key={d.name} className="bg-white h-[450px] text-black rounded-xl">
-            <div className='h-56 bg-indigo-500 flex justify-center items-center rounded-t-xl'>
-              <img src={d.img} alt="" className="h-44 w-44 rounded-full"/>
-            </div>
 
-            <div className="flex flex-col items-center justify-center gap-4 p-4">
-              <p className="text-xl font-semibold">{d.name}</p>
-              <p className="text-center">{d.desc}</p>
-              <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>Read More</button>
-            </div>
+  let nextSlide = () => {
+    if (current === slides.length - 1) setCurrent(0);
+    else setCurrent(current + 1);
+  };
+
+  return (
+    <div className="CarouselHolder">
+    <div className="overflow-hidden relative rounded-2xl w-full h-full">
+      <div className={`flex transition ease-out duration-40`} style={{ transform: `translateX(-${current * 100}%)`, width: "100%", height: "100%" }}>
+        {slides.map((s, index) => (
+          <div key={index} style={{ flex: '0 0 100%', maxWidth: '100%', width: "100%", height: "100%" }}>
+            <Card className="TodayExerciseCard" shadow="sm" isPressable onPress={() => console.log("item pressed")} style={{ width: "100%", height: "100%", backgroundColor: "#dedcff"  }}>
+              <CardBody className="TodayExerciseCard overflow-visible p-0" style={{ width: "100%", height: "100%" }}>
+                <Image
+                  shadow="sm"
+                  radius="none"
+                  width="300px"
+                  height="auto"
+                  alt={s.name}
+                  className="w-full h-full object-cover"
+                  src={s.img}
+                  onClick={() => console.log("item clicked")}
+                />
+              </CardBody>
+              <CardFooter className="text-small justify-center">
+                <div className="mb-5">
+                  <p className="text-black">{s.name}</p>
+                  <p className="text-black">{s.desc}</p>
+                </div>
+              </CardFooter>
+            </Card>
           </div>
         ))}
-      </Slider>
       </div>
-      
+
+      <div className="buttonsCarousel absolute top-0 h-full w-full justify-between px-2 items-center flex text-white text-3xl">
+        <button onClick={previousSlide}>
+          <BsFillArrowLeftCircleFill />
+        </button>
+        <button onClick={nextSlide}>
+          <BsFillArrowRightCircleFill />
+        </button>
+      </div>
+      <div className="absolute bottom-0 py-4 flex justify-center mt-10 gap-3 w-full">
+        {slides.map((s, i) => (
+          <div
+            onClick={() => {
+              setCurrent(i);
+            }}
+            key={"circle" + i}
+            className={`rounded-full w-2 h-2 cursor-pointer  ${i === current ? "bg-black" : "bg-gray-500"}`}
+          ></div>
+        ))}
+      </div>
+    </div>
     </div>
   );
 }
