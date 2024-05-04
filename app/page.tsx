@@ -3,17 +3,21 @@
 import React, { useState } from 'react';
 import { Input, Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
+import { signInUserWithEmailAndPassword } from './firebase';
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // Perform authentication logic here
-    console.log('Logging in with:', email, password);
+    const success = await signInUserWithEmailAndPassword(email, password);
+    if (success) {      // Redirect to dashboard after successful login
+      console.log('Logging in with:', email, password);
+      router.push('/home');
+    }
     // Redirect to dashboard after successful login
-    router.push('/home');
   };
 
   return (

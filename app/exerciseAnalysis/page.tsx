@@ -20,6 +20,22 @@ const ExerciseAnalysis: React.FC = () => {
     { time: 12, description: 'Eat less food' },
     { time: 22, description: 'touch grass' },
     { time: 28, description: 'whats ur number bbg?' },
+    { time: 2, description: 'Yo leg bent' },
+    { time: 5, description: 'Fix ur back bruh' },
+    { time: 6, description: 'LMAOO u weak' },
+    { time: 12, description: 'Eat less food' },
+    { time: 22, description: 'touch grass' },
+    { time: 28, description: 'whats ur number bbg?' },
+    { time: 6, description: 'LMAOO u weak' },
+    { time: 12, description: 'Eat less food' },
+    { time: 22, description: 'touch grass' },
+    { time: 28, description: 'whats ur number bbg?' },
+    { time: 2, description: 'Yo leg bent' },
+    { time: 5, description: 'Fix ur back bruh' },
+    { time: 6, description: 'LMAOO u weak' },
+    { time: 12, description: 'Eat less food' },
+    { time: 22, description: 'touch grass' },
+    { time: 28, description: 'whats ur number bbg?' },
   ]);
   const videoRef = useRef<ReactPlayer>(null);
   const [playing, setPlaying] = useState(false);
@@ -73,9 +89,9 @@ const ExerciseAnalysis: React.FC = () => {
           </div>
         </div>
         <div className='w-1/4'>
-          <div className="bg-gray-800 p-4 rounded-xl" style={{ marginTop: '1rem', minHeight: '45%', maxHeight: '45%' }}> 
+          <div className="overflow-y-auto max-h-[50vh] bg-gray-800 p-4 rounded-xl" style={{ marginTop: '1rem' }}> 
             <h2 className="text-white text-lg font-bold mb-4">Timestamps</h2>
-            <div className="min-h-screen overflow-y-auto bg-blue-500 rounded-xl p-4 my-4 " style={{minHeight: '85%', maxHeight: '85%'}}>
+            <div className="overflow-y-auto bg-blue-500 rounded-xl p-4 my-4 ">
               {events.map(event => (
                 <button
                   key={event.time}

@@ -29,6 +29,13 @@ const Dashboard: React.FC = () => {
       "isPending": true,
       "onClick": () => openCard(<ChatbotModal />)
     },
+    {
+      "exerciseName": "Exercise 1",
+      "completionTime": "2024-05-01",
+      "accuracyScore": 95,
+      "isPending": false,
+      "onClick": () => openCard(<StatsModal />)
+    },
     // Rest of your data
   ];
 
@@ -63,7 +70,7 @@ const Dashboard: React.FC = () => {
         {/* Big card on the right side */}
         <div className="w-1000 p-8">
           {cardContent && (
-            <Card style={{ width: "950px", height: "600px"}} >
+            <Card style={{ width: "950px", height: "630px"}} >
               <div className="p-4">
                 <span className="absolute top-0 right-0 p-4 pr-6  cursor-pointer" onClick={() => setCardContent(null)}>×</span>
                 {cardContent}
@@ -80,7 +87,7 @@ const CardButton: React.FC<CardButtonProps> = ({ exerciseName, completionTime, a
   return (
     <Card style={{ backgroundColor : "rgb(37 99 235)", width: '400px', height: '170px', marginBottom: '10px' }}>
       <div className="p-6">
-        <h2 className="text-lg font-semibold mb-2">{exerciseName}</h2>
+        <h2 className="text-lg text-white font-semibold mb-2">{exerciseName}</h2>
         <p className="text-sm text-white mb-4">{completionTime}</p>
         <div className="flex justify-between items-center">
           <p className="text-sm text-white">Accuracy Score: {accuracyScore}</p>
@@ -104,8 +111,7 @@ const StatsModal: React.FC = () => {
   // Stats modal content goes here
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-4">Stats</h2>
-      <p>This is the stats modal content.</p>
+      <Chatbot showingStats={true} />
     </div>
   );
 };

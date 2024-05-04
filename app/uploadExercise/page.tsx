@@ -32,8 +32,8 @@ const ExercisePage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center min-h-screen pt-20 mt-20">
-        <h1 className="text-3xl font-bold mb-10">Upload your {search} video </h1>
+      <div style={{backgroundColor : "#dedcff"}} className="flex flex-col items-center min-h-screen pt-20">
+        <h1 className="text-3xl font-bold mb-10 text-blue-600">Upload your {search} video </h1>
         <label
           htmlFor="fileInput"
           className="relative cursor-pointer"
@@ -55,7 +55,7 @@ const ExercisePage: React.FC = () => {
             height={100}
           />
         </label>
-        <p className="text-gray-500 mt-5">Click the image to upload your video</p>
+        <p className="text-blue-600 mt-5">Click the image to upload your video</p>
       </div>
     </div>
 

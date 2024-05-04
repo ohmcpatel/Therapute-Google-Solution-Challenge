@@ -39,7 +39,7 @@ export default function AppointmentSchedule() {
 
     useEffect(() => {
         setSchedule(list);
-    }, []);
+    }, [list]);
 
     function handleClick(link: string) {
         const url = `${link}`;

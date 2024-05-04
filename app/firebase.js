@@ -68,7 +68,7 @@ export async function addUser(email, password, username, isActive, therapist) {
 
   export async function signInUserWithEmailAndPassword(email, password) {
       const user = await getUserByEmail(email); // Get user data from Firestore
-      console.log(user !== null);
+      console.log(user);
       if (user !== null && user.password === password) { // Check if user exists and password matches
         console.log("User signed in successfully!");
         return true; // Sign in user if password matches

@@ -79,7 +79,7 @@ export default function PTComments() {
 
     useEffect(() => {
         setComments(list);
-    }, []);
+    }, [list]);
 
     function handleClick(link: string) {
         router.push(`/history?param1=${link}`)
@@ -91,8 +91,8 @@ export default function PTComments() {
             {comments.map((c, index) => (
                 <div key={index} className="flex items-center justify-between mb-6 p-4 rounded-xl bg-white shadow-lg">
                     <div className="flex items-center">
-                        <Image src={c.image} alt="Therapist picture" height='60px' width='60px' className="rounded-full mr-4" />
-                        <div>
+                        <Image src={c.image} alt="Therapist picture" height='60px' width='60px' className="rounded-full mr-15" />
+                        <div className='pl-3'>
                             <h4 className="text-gray-800 font-semibold">{c.therapist}</h4>
                             <p className="text-gray-600">{c.date}</p>
                             <p className="text-gray-700">{c.name}</p>

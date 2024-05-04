@@ -60,7 +60,15 @@ const router = useRouter();
       </div>
 
       {/* Modal for editing profile */}
-      <Modal isOpen={isEditing} onClose={toggleEditModal}>
+      <Modal isOpen={isEditing} onClose={toggleEditModal} 
+      classNames={{
+          body: "py-6",
+          backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
+          base: "border-#2563eb bg-white dark:bg-[#19172c] text-black",
+          header: "border-b-[1px] border-[#2563eb]",
+          footer: "border-t-[1px] border-[#2563eb]",
+          closeButton: "hover:bg-white/5 active:bg-white/10",
+        }}>
         <ModalContent>
           <ModalHeader>Edit Profile</ModalHeader>
           <ModalBody>

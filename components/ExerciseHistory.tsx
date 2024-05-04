@@ -42,7 +42,7 @@ export default function ExerciseHistory() {
 
     useEffect(() => {
         setHistory(list);
-    }, []);
+    }, [list]);
 
     function handleClick(link: string) {
         router.push(`/history?param1=${link}`)

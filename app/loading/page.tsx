@@ -28,7 +28,7 @@ const LoadingPage: React.FC = () => {
     <div>    
       <Navbar />
       <div style={{backgroundColor: '#dedcff'}} className="flex flex-col items-center pt-20 min-h-screen">
-      <h1 className="text-4xl font-bold text-white-400">Your video is being processed.</h1>
+      <h1 className="text-4xl font-bold text-blue-600">Your video is being processed.</h1>
       <div className="mt-20" style={{ width: 300, height: 300 }}>
         <CircularProgressbar
           value={progress}
