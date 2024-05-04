@@ -20,6 +20,7 @@ export default function App() {
           "data-[active=true]:after:bg-primary",
         ],
       }}
+      style={{ backgroundColor: '#433bff' }}
     >
       <NavbarBrand>
         <p className="dark font-bold text-inherit">Therapute</p>
