@@ -16,7 +16,7 @@ interface HomePageProps {
   name: string;
 }
 
-export default function Home(props: HomePageProps) {
+const Home: any  = (props: HomePageProps) =>{
   return (
     <div className="flex flex-col" style={{backgroundColor: '#dedcff'}}>
       <Navbar />
@@ -46,3 +46,6 @@ export default function Home(props: HomePageProps) {
     </div>
   );
 }
+
+
+export default Home;

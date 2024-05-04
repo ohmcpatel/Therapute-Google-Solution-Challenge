@@ -102,7 +102,7 @@ const ChatbotModal: React.FC = () => {
   // Chatbot modal content goes here
   return (
     <div>
-      <Chatbot />
+      <Chatbot showingStats={false} />
     </div>
   );
 };

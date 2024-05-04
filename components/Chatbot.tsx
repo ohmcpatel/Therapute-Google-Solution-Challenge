@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Button } from "@nextui-org/react";
 
-const Chatbot: React.FC = ({showingStats}) => {
+interface ChatbotProps {
+  showingStats: boolean;
+}
+
+const Chatbot: React.FC<ChatbotProps> = ({showingStats}) => {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>([{ text: "Hey, so you did the dumbbell thrust exercise, right? How did it feel overall?", sender: "bot" }]);
   const [userEntry, setUserEntry] = useState<string>('');
   const [temp, setTemp] = useState<string>('');
