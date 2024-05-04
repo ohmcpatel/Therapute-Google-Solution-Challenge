@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Tabs, Tab } from "@nextui-org/react";
 import { Card, Button } from '@nextui-org/react';
 import Chatbot from "@/components/Chatbot"
+import Navbar from "@/components/Navbar"
 
 interface CardButtonProps {
   exerciseName: string;
@@ -32,41 +33,44 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className='flex min-h-screen'>
-      <Tabs placement="top" style={{ marginLeft: '110px', marginTop: '30px' }}>
-        <Tab title="Pending Analysis">
-          <div className="overflow-auto mt-3 ml-7 mr-7" style={{ height: '650px' }}>
-            {cardButtonData.filter(item => item.isPending).map((cardButton, index) => (
-              <CardButton
-                key={index}
-                {...cardButton}
-              />
-            ))}
-          </div>
-        </Tab>
-
-        <Tab title="Completed">
-          <div className="overflow-auto mt-3 ml-7 mr-7" style={{ height: '400px' }}>
-            {cardButtonData.filter(item => !item.isPending).map((cardButton, index) => (
-              <CardButton
-                key={index}
-                {...cardButton}
-              />
-            ))}
-          </div>
-        </Tab>
-      </Tabs>
-
-      {/* Big card on the right side */}
-      <div className="w-96 p-8">
-        {cardContent && (
-          <Card style={{ width: "1100px", height: "720px"}} >
-            <div className="p-4">
-              <span className="absolute top-0 right-0 p-2 pr-4  cursor-pointer" onClick={() => setCardContent(null)}>×</span>
-              {cardContent}
+    <div>
+      <Navbar/>
+      <div style={{backgroundColor: '#dedcff'}} className='flex min-h-screen'>
+        <Tabs placement="top" style={{ marginLeft: '110px', marginTop: '30px' }}>
+          <Tab title="Pending Analysis">
+            <div className="overflow-auto mt-3 ml-7 mr-7" style={{ height: '650px' }}>
+              {cardButtonData.filter(item => item.isPending).map((cardButton, index) => (
+                <CardButton
+                  key={index}
+                  {...cardButton}
+                />
+              ))}
             </div>
-          </Card>
-        )}
+          </Tab>
+
+          <Tab title="Completed">
+            <div className="overflow-auto mt-3 ml-7 mr-7" style={{ height: '400px' }}>
+              {cardButtonData.filter(item => !item.isPending).map((cardButton, index) => (
+                <CardButton
+                  key={index}
+                  {...cardButton}
+                />
+              ))}
+            </div>
+          </Tab>
+        </Tabs>
+
+        {/* Big card on the right side */}
+        <div className="w-1000 p-8">
+          {cardContent && (
+            <Card style={{ width: "950px", height: "600px"}} >
+              <div className="p-4">
+                <span className="absolute top-0 right-0 p-4 pr-6  cursor-pointer" onClick={() => setCardContent(null)}>×</span>
+                {cardContent}
+              </div>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -74,13 +78,13 @@ const Dashboard: React.FC = () => {
 
 const CardButton: React.FC<CardButtonProps> = ({ exerciseName, completionTime, accuracyScore, isPending, onClick }) => {
   return (
-    <Card style={{ width: '400px', height: '200px', marginBottom: '10px' }}>
+    <Card style={{ backgroundColor : "rgb(37 99 235)", width: '400px', height: '170px', marginBottom: '10px' }}>
       <div className="p-6">
         <h2 className="text-lg font-semibold mb-2">{exerciseName}</h2>
-        <p className="text-sm text-gray-600 mb-4">{completionTime}</p>
+        <p className="text-sm text-white mb-4">{completionTime}</p>
         <div className="flex justify-between items-center">
-          <p className="text-sm text-gray-600">Accuracy Score: {accuracyScore}</p>
-          <Button onClick={onClick} color="primary">{isPending ? 'Complete Analysis' : 'View History'}</Button>
+          <p className="text-sm text-white">Accuracy Score: {accuracyScore}</p>
+          <Button style={{backgroundColor : "rgb(96 165 250)"}} onClick={onClick}>{isPending ? 'Complete Analysis' : 'View History'}</Button>
         </div>
       </div>
     </Card>

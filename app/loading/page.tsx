@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Navbar from "../../components/Navbar";
 
 const LoadingPage: React.FC = () => {
   const router = useRouter();
@@ -24,7 +25,9 @@ const LoadingPage: React.FC = () => {
   }, [progress, router]);
 
   return (
-    <div className="flex flex-col items-center mt-20 pt-20 min-h-screen">
+    <div>    
+      <Navbar />
+      <div style={{backgroundColor: '#dedcff'}} className="flex flex-col items-center pt-20 min-h-screen">
       <h1 className="text-4xl font-bold text-white-400">Your video is being processed.</h1>
       <div className="mt-20" style={{ width: 300, height: 300 }}>
         <CircularProgressbar
@@ -38,7 +41,10 @@ const LoadingPage: React.FC = () => {
           })}
         />
       </div>
+  </div>
+
     </div>
+
   );
 };
 

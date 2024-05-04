@@ -1,6 +1,9 @@
 "use client"
-import { Card, Divider, Avatar, Badge } from '@nextui-org/react';
+
+import { Avatar, Badge, Card, Divider, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import { useState } from 'react';
+import Navbar from '../../components/Navbar';
+import { useRouter } from 'next/navigation';
 
 interface UserProfile {
   name: string;
@@ -9,31 +12,68 @@ interface UserProfile {
 }
 
 const ProfilePage: React.FC = () => {
+const router = useRouter();
   const [userProfile] = useState<UserProfile>({
     name: 'John Doe',
     email: 'john@example.com',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   });
 
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  // Function to handle logout
+  const handleLogout = () => {
+    router.push("/")
+  };
+
+  // Function to toggle editing modal
+  const toggleEditModal = () => {
+    setIsEditing(!isEditing);
+  };
+
+  // Function to handle profile editing
+  const handleEditProfile = () => {
+    toggleEditModal();
+    // Implement your profile editing logic here
+    console.log("Edit profile logic goes here");
+  };
+
   return (
-    <div className=" min-h-screen p-8">
-      <div className="flex justify-between items-center mb-8">
-        <div className="flex items-center space-x-4">
-          <Avatar size="lg" src="/avatar.jpg" alt="Profile Picture" />
-          <div>
-            <h3 className="text-xl font-semibold">{userProfile.name}</h3>
-            <p className="text-gray-600">{userProfile.email}</p>
+    <div style={{ backgroundColor: "#dedcff" }} className="min-h-screen">
+      <Navbar />
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="flex justify-between items-center mb-8">
+            <div className="flex items-center space-x-4">
+              <Avatar size="lg" src="/avatar.jpg" alt="Profile Picture" />
+              <div>
+                <h3 className="text-xl text-black font-semibold">{userProfile.name}</h3>
+                <p className="text-gray-600">{userProfile.email}</p>
+              </div>
+            </div>
+            <div className="flex space-x-4">
+              <Button color="primary" onClick={toggleEditModal}>Edit Profile</Button>
+              <Button color="secondary" onClick={handleLogout}>Logout</Button>
+            </div>
           </div>
         </div>
-        <Badge color="primary" className="px-4 py-2">Edit Profile</Badge>
       </div>
 
-      <Divider className="mb-8" />
-
-      <div>
-        <h4 className="text-lg font-semibold mb-4">About Me</h4>
-        <p>{userProfile.bio}</p>
-      </div>
+      {/* Modal for editing profile */}
+      <Modal isOpen={isEditing} onClose={toggleEditModal}>
+        <ModalContent>
+          <ModalHeader>Edit Profile</ModalHeader>
+          <ModalBody>
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <textarea placeholder="Bio"></textarea>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={handleEditProfile}>Save Changes</Button>
+            <Button onClick={toggleEditModal}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

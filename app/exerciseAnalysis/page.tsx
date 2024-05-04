@@ -2,8 +2,14 @@
 // exerciseAnalysis.tsx
 import React from "react";
 import ReactPlayer from 'react-player';
-import { TimestampEvent } from '@/types'; // Assuming TimestampEvent type is defined in a types file
 import MyTabs from '@/components/Tabs';
+import { useState, useRef } from "react";
+import Navbar from "@/components/Navbar";
+
+interface TimestampEvent {
+  time: number;
+  description: string;
+}
 
 const ExerciseAnalysis: React.FC = () => {
   const [accuracyScore, setAccuracyScore] = useState<string>('94.2%');
@@ -46,45 +52,49 @@ const ExerciseAnalysis: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="flex flex-col w-2/3 mx-12 my-4">
-        <div className="relative rounded-xl overflow-hidden" style={{ paddingTop: '56.25%' }}>
-          <ReactPlayer
-            ref={videoRef}
-            url="/test.mp4"
-            playing={playing}
-            controls
-            width="100%"
-            height="100%"
-            onProgress={handleProgress} // Handle video progress
-            style={{ position: 'absolute', top: 0, left: 0 }}
-          />
-        </div>
-        <div className="bg-gray-700 rounded-xl p-4 mt-4 text-white text-center">
-          Accuracy Score: {accuracyScore}
-        </div>
-      </div>
-      <div className='w-1/4'>
-        <div className="bg-gray-800 p-4 rounded-xl" style={{ marginTop: '1rem', minHeight: '45%', maxHeight: '45%' }}> 
-          <h2 className="text-white text-lg font-bold mb-4">Timestamps</h2>
-          <div className="bg-blue-500 rounded-xl p-4 my-4 overflow-auto" style={{minHeight: '85%', maxHeight: '85%'}}>
-            {events.map(event => (
-              <button
-                key={event.time}
-                onClick={() => jumpToTime(event)}
-                className={`text-white rounded-lg p-2 block w-full mb-2 ${
-                  selectedTime === event.time ? 'bg-blue-800' : 'bg-blue-700 hover:bg-blue-800'
-                }`}
-              >
-                {formatTime(event.time)}
-              </button>
-            ))}
+    <div>
+      <Navbar />
+      <div style={{backgroundColor: '#dedcff'}} className="flex h-screen">
+        <div className="flex flex-col w-2/3 mx-12 my-4">
+          <div className="relative rounded-xl overflow-hidden" style={{ paddingTop: '56.25%' }}>
+            <ReactPlayer
+              ref={videoRef}
+              url="/test.mp4"
+              playing={playing}
+              controls
+              width="100%"
+              height="100%"
+              onProgress={handleProgress} // Handle video progress
+              style={{ position: 'absolute', top: 0, left: 0 }}
+            />
+          </div>
+          <div className="bg-gray-700 rounded-xl p-4 mt-4 text-white text-center">
+            Accuracy Score: {accuracyScore}
           </div>
         </div>
-        {selectedDescription && selectedDescription.length > 0 &&
-          <MyTabs selectedDescription={selectedDescription} />}
+        <div className='w-1/4'>
+          <div className="bg-gray-800 p-4 rounded-xl" style={{ marginTop: '1rem', minHeight: '45%', maxHeight: '45%' }}> 
+            <h2 className="text-white text-lg font-bold mb-4">Timestamps</h2>
+            <div className="min-h-screen overflow-y-auto bg-blue-500 rounded-xl p-4 my-4 " style={{minHeight: '85%', maxHeight: '85%'}}>
+              {events.map(event => (
+                <button
+                  key={event.time}
+                  onClick={() => jumpToTime(event)}
+                  className={`text-white rounded-lg p-2 block w-full mb-2 ${
+                    selectedTime === event.time ? 'bg-blue-800' : 'bg-blue-700 hover:bg-blue-800'
+                  }`}
+                >
+                  {formatTime(event.time)}
+                </button>
+              ))}
+            </div>
+          </div>
+          {selectedDescription && selectedDescription.length > 0 &&
+            <MyTabs selectedDescription={selectedDescription} />}
+        </div>
       </div>
     </div>
+
   );
 };
 

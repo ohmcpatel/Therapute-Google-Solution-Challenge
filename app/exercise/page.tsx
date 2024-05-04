@@ -4,6 +4,7 @@
 import React from "react";
 import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 import {useRouter} from "next/navigation";
+import Navbar from "../../components/Navbar";
 
 export default function App() {
   const router = useRouter();
@@ -48,25 +49,29 @@ export default function App() {
   ];
 
   return (
-    <div className="gap-10 grid grid-cols-2 sm:grid-cols-4 p-10 min-h-screen">
-      {list.map((item, index) => (
-        <Card shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
-          <CardBody className="overflow-visible p-0">
-            <Image
-              shadow="sm"
-              radius="lg"
-              width="100%"
-              alt={item.title}
-              className="w-full object-cover h-[320px]"
-              src={item.img}
-              onClick={() => handleClick(item.title)}
-            />
-          </CardBody>
-          <CardFooter className="text-small justify-center">
-            <b>{item.title}</b>
-          </CardFooter>
-        </Card>
-      ))}
+    <div>
+      <Navbar />
+      <div style={{backgroundColor: '#dedcff'}} className="gap-10 grid grid-cols-2 sm:grid-cols-4 p-10 min-h-screen">
+        {list.map((item, index) => (
+          <Card style={{backgroundColor: "rgb(37 99 235)"}} shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
+            <CardBody className="overflow-visible p-0">
+              <Image
+                shadow="sm"
+                radius="lg"
+                width="100%"
+                alt={item.title}
+                className="w-full object-cover h-[320px]"
+                src={item.img}
+                onClick={() => handleClick(item.title)}
+              />
+            </CardBody>
+            <CardFooter className="text-small justify-center">
+              <b>{item.title}</b>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
+    
   );
 }

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import "../globals.css"
+import "../app/globals.css"
+
 interface Slide {
   name: string;
   img: string;

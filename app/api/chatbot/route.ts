@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { OpenAI } from 'openai';
 
 
@@ -12,11 +11,13 @@ export async function POST(req: Request){
         messages: [
           {
             role: 'user',
-            content: prompt,
+            content: prompt.prompt,
           },
         ],
-        max_tokens: 10,
+        max_tokens: 100,
       });
+
+      console.log(JSON.stringify(GPTresponse.choices[0].message.content));
 
       return new Response(JSON.stringify(GPTresponse.choices[0].message.content));
 

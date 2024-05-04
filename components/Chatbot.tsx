@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { Input, Button } from "@nextui-org/react";
 
 const Chatbot: React.FC = () => {
-  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
-  const [userEntry, setUserEntry] = useState<string>('');
+  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([{ text: "Hey, so you did the dumbbell thrust exercise, right? How did it feel overall?", sender: "bot" }]);
+ const [userEntry, setUserEntry] = useState<string>('');
   const [temp, setTemp] = useState<string>('');
   const [comment, setComment] = useState<string>('');
+
 
 
   const handleMessageSend = (messageText: string, sender: string) => {
@@ -19,27 +20,24 @@ const Chatbot: React.FC = () => {
 
   const sendPromptToServer = async () => {
     try {
+
+      const prompt = `The following is how a user feels doing the dumbell thrust exercise. Ask them questions to figure out more about how their exercise went. You need to help ask questions that narrow down the problem. Be specific, but also nice. But also be super short and concise, only ask 1 sentence. If you find by looking at the messages that you have collected enough information, you can end the coneversation by giving them a summary of your conclusions. Here is what the user has to say: ${userEntry}. Now here is a log of all previous messages you sent so you can provide the best response: ${JSON.stringify(messages)}`;
+      console.log(prompt)
       const response = await fetch('/api/chatbot', {
         method: 'POST',
         body: JSON.stringify({
-          prompt:
-            "The following is how a user feels doing the dumbell thrust exercise. Ask them questions to figure out more about how their exercise went. Be specific and analytical. But also be super short and concise. 1 sentence. Here is what the user has to say: " +
-            userEntry +
-            ". Now here is a log of all previous messages you sent so you can provide the best response: " +
-            JSON.stringify(messages) // Convert messages array to string
+          prompt: prompt
         }),
       });
       
       const responseData = await response.json();
-      handleMessageSend(responseData.prompt, 'bot');
+      handleMessageSend(responseData, 'bot');
     } catch (error) {
       console.error('Error sending prompt to server:', error);
     }
   };
   
-  useEffect(() => {
-    handleMessageSend('Hey, so you did the dumbbell thrust exercise, right? How did it feel overall?', 'bot');
-  }, []);
+
 
   useEffect(() => {
     if (userEntry.trim() !== '') {
@@ -79,15 +77,15 @@ const Chatbot: React.FC = () => {
         </div>
       </div>
       {/* Add manual comment section and submit button */}
-      <div className="manual-comment p-4 mt-4">
-        <h2 className="text-gray-300 mb-2">Comment</h2>
+      <div className="manual-comment pd-3 mt-4">
+        <h2 className="text-gray-300 mb-2 pl-1">Comment</h2>
         <Input
           placeholder="Add a comment..."
           className="rounded-lg bg-dark-800 text-gray-300"
           onChange={(e) => setComment(e.currentTarget.value)}
           value={comment}
         />
-        <Button color="primary" className="mt-2 justify-end" onClick={() => sendCommentAndMessages()}>
+        <Button color="primary" className="mt-10" onClick={() => sendCommentAndMessages()}>
           Submit Analysis
         </Button>
       </div>

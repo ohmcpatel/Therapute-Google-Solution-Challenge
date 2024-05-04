@@ -1,43 +1,47 @@
+"use client"
 
-import Image from "next/image";
-import { Button } from "@nextui-org/button";
-import TodayExercise from "./components/TodayExercise";
-import Carousel from './components/ImageCarousel';
-import History from "./components/ExerciseHistory";
-import Schedule from "./components/AppointmentSchedule";
-import Comments from "./components/PTComments";
-import ActivityGraph from "./components/ActivityGraph";
-import "./globals.css";
+import React, { useState } from 'react';
+import { Input, Button } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 
-interface HomePageProps {
-  name: string;
-}
+const LoginPage: React.FC = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-export default function Home(props: HomePageProps) {
+  const handleLogin = () => {
+    // Perform authentication logic here
+    console.log('Logging in with:', email, password);
+    // Redirect to dashboard after successful login
+    router.push('/home');
+  };
+
   return (
-    <div className="flex flex-col" style={{backgroundColor: '#dedcff'}}>
-      <div className="HomePageTopDiv flex justify-between mt-5">
-        <div className="w-1/3 p-4 flex flex-col items-center justify-start">
-          <TodayExercise />
-        </div>
-        <div className="w-1/3 p-4 flex flex-col items-center justify-start">
-          <History />
-        </div>
-        <div className="w-1/3 p-4 flex flex-col items-center justify-start">
-          <Schedule />
-        </div>
-      </div>
-      <div className="flex justify-between mr-10 mt-20 mb-10">
-        <div className="w-1/2 mt-10">
-          <div className=" flex flex-col p-9 items-center justify-start rounded-xl" style={{ width: '80%', margin: '0 auto', backgroundColor: '#0165e5' }}>
-            <h2 className="text-white mb-3" style={{ fontSize: '1.2rem' }}>Activity Graph:</h2>
-            <ActivityGraph />
-          </div>
-        </div>
-        <div className="w-1/2 p-5 flex flex-col items-center justify-start">
-          <Comments />
-        </div>
+    <div style={{backgroundColor : "#dedcff"}} className="min-h-screen flex items-center justify-center" >
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-center text-blue-600 mb-6">Login</h2>
+        <Input
+          value={email}
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          className="mb-4"
+        />
+        <Input
+          value={password}
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          className="mb-6"
+        />
+        <Button
+          onClick={handleLogin}
+          color="primary"
+        >
+          Sign In
+        </Button>
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
