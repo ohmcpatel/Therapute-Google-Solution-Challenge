@@ -37,7 +37,7 @@ export default function ImageCarousel({ slides }: CarouselProps) {
                   shadow="sm"
                   radius="none"
                   width="300px"
-                  height="auto"
+                  height="350px"
                   alt={s.name}
                   className="w-full h-full object-cover"
                   src={s.img}
