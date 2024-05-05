@@ -5,6 +5,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import { Image } from "@nextui-org/react";
+import { db } from '../app/firebase';
+import { getFirestore, collection, addDoc, getDoc, setDoc, doc, query, where, getDocs, updateDoc } from "firebase/firestore";
 
 interface Comments {
     name: string;
@@ -17,69 +19,26 @@ interface Comments {
 export default function PTComments() {
     const router = useRouter();
     const [comments, setComments] = useState<Comments[]>([]);
-    const list: Comments[] = [
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-            therapist: "Dr. Jane Doe",
-            image: '/profilepic.png',
-        },
-        // Add your other comments here...
-    ];
-
+    
+    async function fetchData() {
+        const q = query(collection(db, 'comments'));
+        const querySnapshot = await getDocs(q);
+        // Convert each DocumentData object to Slide
+        const data: Comments[] = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+            name: data.name,
+            image: data.image,
+            link: data.link,
+            date: data.date,
+            therapist: data.therapist,
+            };
+        });
+        setComments(data);
+    }
     useEffect(() => {
-        setComments(list);
-    }, [list]);
+        fetchData()
+    }, [])
 
     function handleClick(link: string) {
         router.push(`/history?param1=${link}`)
