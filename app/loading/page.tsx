@@ -1,7 +1,7 @@
 "use client"
-// LoadingPage.tsx
+
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Navbar from "../../components/Navbar";
@@ -14,37 +14,58 @@ const LoadingPage: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => (prevProgress >= 100 ? 100 : prevProgress + 10));
-    }, 500); // Simulating progress every 200 milliseconds
+    }, 500); // Simulating progress every 500 milliseconds
+
     return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
     if (progress === 100) {
-      router.push("/exerciseAnalysis");
+      fetchProcessedFile();
     }
-  }, [progress, router]);
+  }, [progress]);
+
+  const fetchProcessedFile = async () => {
+    try {
+      // Fetch the processed file URL from the server
+      const response = await fetch('http://127.0.0.1:5000/test');
+      if (!response.ok) {
+        console.error('Failed to fetch processed file');
+        // Handle error
+        return;
+      }
+      const processedFileUrl = await response.text();
+      
+      // Redirect to the next page with the processed file URL as a query parameter
+      router.push({
+        pathname: '/nextpage',
+        query: { videoUrl: processedFileUrl }
+      });
+    } catch (error) {
+      console.error('Error fetching processed file:', error);
+      // Handle error
+    }
+  };
 
   return (
     <div>    
       <Navbar />
       <div style={{backgroundColor: '#dedcff'}} className="flex flex-col items-center pt-20 min-h-screen">
-      <h1 className="text-4xl font-bold text-blue-600">Your video is being processed.</h1>
-      <div className="mt-20" style={{ width: 300, height: 300 }}>
-        <CircularProgressbar
-          value={progress}
-          text={`${progress}%`}
-          styles={buildStyles({
-            textSize: "20px",
-            pathColor: "foreground",
-            textColor: "foreground",
-            trailColor: "foreground",
-          })}
-        />
+        <h1 className="text-4xl font-bold text-blue-600">Your video is being processed.</h1>
+        <div className="mt-20" style={{ width: 300, height: 300 }}>
+          <CircularProgressbar
+            value={progress}
+            text={`${progress}%`}
+            styles={buildStyles({
+              textSize: "20px",
+              pathColor: "foreground",
+              textColor: "foreground",
+              trailColor: "foreground",
+            })}
+          />
+        </div>
       </div>
-  </div>
-
     </div>
-
   );
 };
 
