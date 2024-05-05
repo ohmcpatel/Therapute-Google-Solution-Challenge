@@ -2,6 +2,8 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
+import { db } from '../app/firebase';
+import { getDocs, query, collection } from 'firebase/firestore';
 
 interface ExerciseData {
   date: string; // Date string in ISO format (e.g., '2024-04-30')
@@ -12,23 +14,19 @@ const ExerciseGraph: React.FC = () => {
   const [exerciseData, setExerciseData] = useState<ExerciseData[]>([]);
 
   useEffect(() => {
-    // Fetch exercise data for the last 7 days (replace with your own data fetching logic)
     const fetchData = async () => {
-      try {
-        // Mock data for demonstration purposes
-        const mockData: ExerciseData[] = [
-          { date: '2024-04-24', count: 3 },
-          { date: '2024-04-25', count: 5 },
-          { date: '2024-04-26', count: 4 },
-          { date: '2024-04-27', count: 6 },
-          { date: '2024-04-28', count: 2 },
-          { date: '2024-04-29', count: 7 },
-          { date: '2024-04-30', count: 5 },
-        ];
-        setExerciseData(mockData);
-      } catch (error) {
-        console.error('Error fetching exercise data:', error);
-      }
+      const q = query(collection(db, 'activityGraph'));
+      const querySnapshot = await getDocs(q);
+      const data: ExerciseData[] = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          date: data.date,
+          count: data.count,
+        };
+      });
+      // Sort the exerciseData array based on the date in ascending order
+      const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      setExerciseData(sortedData);
     };
 
     fetchData();
@@ -47,7 +45,7 @@ const ExerciseGraph: React.FC = () => {
         chartInstanceRef.current = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: exerciseData.map(data => formatDate(data.date)), // Format date labels
+            labels: exerciseData.map(data => data.date), // Format date labels
             datasets: [
               {
                 label: 'Exercises per Day',

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
+import { db } from '../app/firebase';
+import { getFirestore, collection, addDoc, getDoc, setDoc, doc, query, where, getDocs, updateDoc } from "firebase/firestore";
 
 interface Exercise {
     name: string;
@@ -12,37 +14,32 @@ interface Exercise {
 export default function ExerciseHistory() {
     const router = useRouter();
     const [history, setHistory] = useState<Exercise[]>([])
-    const list: Exercise[] = [
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#',
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#'
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#'
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#'
-        },
-        {
-            name: 'Dumbbell Thrust',
-            date: '4/17/24',
-            link: '#'
-        },
-    ];
+    async function fetchData() {
+        const q = query(collection(db, 'history'));
+        const querySnapshot = await getDocs(q);
+        // Convert each DocumentData object to Slide
+        const historyData: Exercise[] = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            //convert date timestamp to mm/dd/yy
+            const dateObject = data.date.toDate();
+            const month = dateObject.getMonth() + 1; // Month is zero-based, so add 1
+            const day = dateObject.getDate();
+            const year = dateObject.getFullYear() % 100; // Get last two digits of the year
+            // Format date in mm/dd/yy format
+            const dateString = `${month}/${day}/${year}`;
 
+            // Assuming the structure of data in Firestore matches Slide interface
+            return {
+            name: data.name,
+            date: dateString,
+            link: data.link,
+            };
+        });
+        setHistory(historyData);
+    }
     useEffect(() => {
-        setHistory(list);
-    }, [list]);
+        fetchData();
+    }, []);
 
     function handleClick(link: string) {
         router.push(`/history?param1=${link}`)

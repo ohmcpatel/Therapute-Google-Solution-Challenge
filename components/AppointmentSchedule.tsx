@@ -1,6 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
+import { db } from '../app/firebase';
+import { getFirestore, collection, addDoc, getDoc, setDoc, doc, query, where, getDocs, updateDoc } from "firebase/firestore";
 
 interface Schedule {
     date: string;
@@ -10,36 +12,24 @@ interface Schedule {
 export default function AppointmentSchedule() {
     const router = useRouter();
     const [schedule, setSchedule] = useState<Schedule[]>([]);
-    const list: Schedule[] = [
-        {
-            date: "4/17/24",
-            link: "#",
-        },
-        {
-            date: "4/17/24",
-            link: "#",
-        },
-        {
-            date: "4/17/24",
-            link: "#",
-        },
-        {
-          date: "4/17/24",
-          link: "#",
-      },
-      {
-          date: "4/17/24",
-          link: "#",
-      },
-      {
-          date: "4/17/24",
-          link: "#",
-      },
-    ];
 
+    async function fetchData() {
+        const q = query(collection(db, 'appointments'));
+        const querySnapshot = await getDocs(q);
+        // Convert each DocumentData object to Slide
+        const scheduleData: Schedule[] = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            // Assuming the structure of data in Firestore matches Slide interface
+            return {
+            date: data.date.toDate().toLocaleString(),
+            link: data.link,
+            };
+        });
+        setSchedule(scheduleData);
+    }
     useEffect(() => {
-        setSchedule(list);
-    }, [list]);
+        fetchData()
+    }, [])
 
     function handleClick(link: string) {
         const url = `${link}`;
