@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useEffect, useState } from 'react';
 import Carousel from './ImageCarousel';
@@ -15,8 +14,11 @@ export default function TodayExercise() {
     const [carousel, setCarousel] = useState<Slide[]>([]);
 
     async function fetchData() {
-        const q = query(collection(db, 'todayExercises'));
-        const querySnapshot = await getDocs(q);
+        //fetch document with matching user id
+        const q = query(collection(db, 'todayExercises'), where('uid', '==', 'IDzKazZW3qN1WXOoCOcJv5gquvd2'));
+        const i = await getDocs(q);
+        //get subcollection of that document with today's exercises
+        const querySnapshot = await getDocs(collection(i.docs[0].ref, 'todayExercises'))
         // Convert each DocumentData object to Slide
         const carouselData: Slide[] = querySnapshot.docs.map(doc => {
             const data = doc.data();
