@@ -2,7 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Run the backend - follow this link
+https://github.com/ohmcpatel/Therapute-Backend
+
 
 1. Clone the repo
 2. Run npm install --legacy-peer-deps
 3. Run npm run dev
+
