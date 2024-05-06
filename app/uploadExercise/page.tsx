@@ -27,7 +27,7 @@ const ExercisePage: React.FC = () => {
       }
 
       // Assuming the server returns the processed file URL
-      const processedFileUrl = await response.text();
+      const processedFileUrl = URL.createObjectURL(await response.blob());
       setVideoUrl(processedFileUrl);
 
     } catch (error) {
@@ -59,7 +59,7 @@ const ExercisePage: React.FC = () => {
       <Navbar />
       <div style={{backgroundColor : "#dedcff"}} className="flex flex-col items-center min-h-screen pt-20">
         {videoUrl && (
-          <video controls>
+          <video width="1100px" height="auto" controls>
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
