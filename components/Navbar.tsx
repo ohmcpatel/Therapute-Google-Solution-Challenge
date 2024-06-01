@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Image } from "@nextui-org/react";
 
 export default function App() {
   return (
@@ -20,29 +20,29 @@ export default function App() {
           "data-[active=true]:after:bg-primary",
         ],
       }}
-      style={{ backgroundColor: '#433bff' }}
+      style={{ backgroundColor: '#433bff', display: 'flex', justifyContent: 'space-around' }}
     >
-      <NavbarBrand>
-        <p className="dark font-bold text-inherit">Therapute</p>
+      <NavbarBrand style={{}}>
+        <Image src='/mainLogo.png' alt="Therapute" height='250px' width='250px' className="ml-5"/>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className=" gap-10" style={{}}> {/* Use ml-auto to push content to the right */}
         <NavbarItem>
-          <Link underline="hover" color="foreground" href="/home">
+          <Link underline="hover" color="foreground" href="/home" className="text-white mr-1">
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link underline="hover" color="foreground" href="/exercise">
+          <Link underline="hover" color="foreground" href="/exercise" className="text-white mr-1">
             Exercise
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link underline="hover" color="foreground" href="analysis">
+          <Link underline="hover" color="foreground" href="analysis" className="text-white mr-1">
             Analysis
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link underline="hover" color="foreground" href="profile">
+          <Link underline="hover" color="foreground" href="profile" className="text-white">
             Profile
           </Link>
         </NavbarItem>

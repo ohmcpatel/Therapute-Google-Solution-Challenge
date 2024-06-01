@@ -36,8 +36,8 @@ export default function TodayExercise() {
     }, [])
 
     return (
-        <div className="flex flex-col items-center bg-blue p-5 rounded-xl" style={{backgroundColor: '#0165e5'}}>
-            <h2 className="todaysExersices align-center text-white mb-3">Today's Exercises</h2>
+        <div className="flex flex-col bg-blue p-3 w-full rounded-md" style={{backgroundColor: '#ffffff', borderColor: '#0165e5', borderWidth: '1px', borderStyle: 'solid', boxShadow: '0px 0px 3px 1px rgba(1, 101, 229, 0.5)'}}>
+            <h2 className="todaysExersices align-left text-gray mb-2 font-semibold">Today's Exercises</h2>
             <Carousel slides={carousel}/>
         </div>
     );

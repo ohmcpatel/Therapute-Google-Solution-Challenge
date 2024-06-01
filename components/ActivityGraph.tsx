@@ -1,5 +1,6 @@
 
 'use client'
+
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { db } from '../app/firebase';
@@ -48,10 +49,13 @@ const ExerciseGraph: React.FC = () => {
             labels: exerciseData.map(data => data.date), // Format date labels
             datasets: [
               {
-                label: 'Exercises per Day',
+                label: 'Exercises on this Day',
                 data: exerciseData.map(data => data.count), // Exercise count data
-                borderColor: 'rgb(0, 0, 0)', // Black border color
-                tension: 0.1,
+                borderColor: 'rgb(1, 101, 229)', // Black border color
+                tension: 0.4,
+                fill: false,
+                borderWidth: 1.5,
+                pointRadius: 3,
               },
             ],
           },
@@ -61,35 +65,41 @@ const ExerciseGraph: React.FC = () => {
                 title: {
                   display: true,
                   text: 'Date',
-                  color: 'white', // White text color
+                  color: 'black', // White text color
                 },
                 ticks: {
-                  color: 'white', // White tick color
+                  color: 'black', // White tick color
                 },
+                grid: {
+                  display: false, // Hide x-axis grid lines
+                },
+                
               },
               y: {
                 title: {
                   display: true,
                   text: 'Number of Exercises',
-                  color: 'white', // White text color
+                  color: 'black', // White text color
                 },
                 ticks: {
-                  color: 'white', // White tick color
+                  color: 'black', // White tick color
                 },
                 beginAtZero: true, // Start y-axis at 0
+                grid: {
+                  display: true, // Hide y-axis grid lines
+                },
               },
             },
             plugins: {
               legend: {
-                position: 'bottom', // Place legend at the bottom
-                labels: {
-                  color: 'white', // White legend label color
-                },
+                display: false,
               },
             },
           },
         });
       }
+      Chart.defaults.font.size = 16;
+      Chart.defaults.font.family = 'sans-serif'
     }
   }, [exerciseData]);
 
@@ -102,7 +112,11 @@ const ExerciseGraph: React.FC = () => {
     return `${month}/${day}/${year}`;
   };
 
-  return <canvas className="w-full mt-5" ref={chartRef}></canvas>;
+  return (
+    <div style={{ height: '98%', width: '100%' }}> {/* Adjust height as needed */}
+      <canvas ref={chartRef} style={{ height: '100%', width: '100%' }}></canvas>
+    </div>
+  );
 };
 
 export default ExerciseGraph;
