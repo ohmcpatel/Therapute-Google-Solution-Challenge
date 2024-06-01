@@ -9,51 +9,47 @@ import Navbar from "../../components/Navbar";
 export default function App() {
   const router = useRouter();
 
-  const handleClick = (title: string) => {
-    router.push(`/uploadExercise?param1=${title}`);
+  const handleClick = (title: string, press: boolean) => {
+    if (press == true ){
+      router.push(`/uploadExercise?param1=${title}`);
+    } 
   }
 
   const list = [
     {
       title: "Deadlift",
       img: "/deadlift.png",
+      press: false
     },
     {
       title: "Dumbell Thrust",
       img: "/dumbellThrust.jpeg",
+      press: true
     },
     {
       title: "Internal Rotation",
       img: "/internalExternal.png",
+      press: false,
+
     },
     {
       title: "Knee Extensions",
       img: "/kneeExtension.png",
+      press: false,
     },
     {
       title: "Rotator Cuff",
       img: "/lying.png",
-    },
-    {
-      title: "Lemon 2",
-      img: "/images/fruit-6.jpeg",
-    },
-    {
-      title: "Banana",
-      img: "/images/fruit-7.jpeg",
-    },
-    {
-      title: "Watermelon",
-      img: "/images/fruit-8.jpeg",
-    },
+      press: false,
+    }
   ];
 
   return (
     <div>
       <Navbar />
       <div style={{backgroundColor: '#dedcff'}} className="gap-10 grid grid-cols-2 sm:grid-cols-4 p-10 min-h-screen">
-        {list.map((item, index) => (
-          <Card style={{backgroundColor: "rgb(37 99 235)"}} shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
+        {list.map((item, index, press) => (
+          <Card style={{backgroundColor: "rgb(37 99 235)"}} shadow="sm" key={index} onPress={() => console.log("item pressed")}>
             <CardBody className="overflow-visible p-0">
               <Image
                 shadow="sm"
@@ -62,7 +58,7 @@ export default function App() {
                 alt={item.title}
                 className="w-full object-cover h-[320px]"
                 src={item.img}
-                onClick={() => handleClick(item.title)}
+                onClick={() => handleClick(item.title, press)}
               />
             </CardBody>
             <CardFooter className="text-small justify-center">

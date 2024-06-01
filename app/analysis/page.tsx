@@ -23,9 +23,9 @@ const Dashboard: React.FC = () => {
   // Example JSON data structure
   const cardButtonData: CardButtonProps[] = [
     {
-      "exerciseName": "Exercise 1",
+      "exerciseName": "Dumbell Thrusts",
       "completionTime": "2024-05-01",
-      "accuracyScore": 95,
+      "accuracyScore": 45,
       "isPending": true,
       "onClick": () => openCard(<ChatbotModal />)
     },
