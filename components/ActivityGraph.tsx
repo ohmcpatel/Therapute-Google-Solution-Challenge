@@ -113,7 +113,7 @@ const ExerciseGraph: React.FC = () => {
   };
 
   return (
-    <div style={{ height: '98%', width: '100%' }}> {/* Adjust height as needed */}
+    <div style={{ height: '100%', width: '100%' }}> {/* Adjust height as needed */}
       <canvas ref={chartRef} style={{ height: '100%', width: '100%' }}></canvas>
     </div>
   );

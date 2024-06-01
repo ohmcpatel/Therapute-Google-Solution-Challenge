@@ -11,7 +11,7 @@ const FooterContainer = styled.footer`
   position: fixed;
   bottom: 0;
   width: 100%;
-  z-index: 9999; /* Set a high z-index value */
+  z-index: 0; /* Set a high z-index value */
 `;
 
 const FooterText = styled.p`

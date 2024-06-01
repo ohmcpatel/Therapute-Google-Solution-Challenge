@@ -39,15 +39,14 @@ export default function ImageCarousel({ slides }: CarouselProps) {
           </button>
         </div>
         {/* Image Carousel */}
-        <div className="overflow-hidden relative" style={{ borderRadius: '10px', height: '100%', width: '100%', flex: '1' }}>
-          <div className="flex transition ease-out duration-400" style={{ transform: `translateX(-${current * 50}%)`, width: "100%", height: "100%", borderRadius: '10px' }}>
+        <div className="overflow-hidden relative" style={{ borderRadius: '10px', height: '100%', width: '100%', flex: '1'}}>
+          <div className="flex transition ease-out duration-400" style={{ transform: `translateX(-${current * 32}%)`, width: "100%", height: "100%", borderRadius: '10px' }}>
             {slidesToDisplay.map((s, index) => (
-              <div className="rounded-md" key={index} style={{ flex: '1 0 48%', maxWidth: '48%', marginRight: "1rem", borderRadius: '10px', background: 'linear-gradient(to top right, #a38ff9 46%, #dad2fe 82%)' }}>
+              <div className="rounded-md" key={index} style={{ flex: '1 0 32%', maxWidth: '48%', marginRight: "1rem", borderRadius: '10px', background: 'linear-gradient(to top right, #a38ff9 46%, #dad2fe 82%)' }}>
                 <div className="rounded-md flex justify-between" onClick={() => console.log("item pressed")} style={{alignItems: "center", height: '100%' }}>
-                  <div className="w-2/3 p-0 " style={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", backgroundColor: '#ffffff', borderTopLeftRadius: '10px', borderBottomLeftRadius: '10px' }}>
-                    <Image
-                      shadow="none"
-                      radius="none"
+                  <div className="" style={{width: "50%", height: "100%", display: "flex", justifyContent: "center", backgroundColor: '#ffffff', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+                    <img
+                    className="object-cover"
                       width= 'auto'
                       height= '100%'
                       alt={s.name}
@@ -77,7 +76,7 @@ export default function ImageCarousel({ slides }: CarouselProps) {
         </div>
       </div>
       {/* Slide Indicators */}
-      <div className="flex justify-center gap-3 w-full">
+      {/* <div className="flex justify-center gap-3 w-full">
         {slidesToDisplay.slice(0, (slidesToDisplay.length - 1)).map((s, i) => (
           <div
             onClick={() => {
@@ -87,7 +86,7 @@ export default function ImageCarousel({ slides }: CarouselProps) {
             className={`rounded-full w-2 h-2 cursor-pointer  ${i === current ? "bg-black" : "bg-gray-500"}`}
           ></div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
