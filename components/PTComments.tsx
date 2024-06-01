@@ -45,10 +45,10 @@ export default function PTComments() {
     }
 
     return (
-        <div className="max-h-[53vh] overflow-y-auto p-6 w-full rounded-xl bg-blue-600">
-            <h2 className="text-white mb-6 text-2xl font-bold text-center">Therapist Comments</h2>
+        <div className="max-h-[40vh] overflow-y-auto p-6 w-full rounded-md bg-blue-600" style={{backgroundColor: '#ffffff', borderColor: '#0165e5', borderWidth: '1px', borderStyle: 'solid', boxShadow: '0px 0px 3px 1px rgba(1, 101, 229, 0.5)', scrollbarWidth: 'thin', scrollbarColor: '#dedcff rgba(255, 255, 255, 0.0)' }}>
+            <h2 className="text-black mb-6 text-2xl text-center">Therapist Comments</h2>
             {comments.map((c, index) => (
-                <div key={index} className="flex items-center justify-between mb-6 p-4 rounded-xl bg-white shadow-lg">
+                <div key={index} className="flex items-center justify-between mb-6 p-4 rounded-xl bg-white" style={{backgroundColor: '#f2f2f2', borderColor: 'black', borderWidth: '1px', borderStyle: 'double'}}>
                     <div className="flex items-center">
                         <Image src={c.image} alt="Therapist picture" height='60px' width='60px' className="rounded-full mr-15" />
                         <div className='pl-3'>

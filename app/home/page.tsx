@@ -10,6 +10,8 @@ import Schedule from "../../components/AppointmentSchedule";
 import Comments from "../../components/PTComments";
 import ActivityGraph from "../../components/ActivityGraph";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import RightComponent from "../../components/RightComponent";
 import "../globals.css";
 
 interface HomePageProps {
@@ -18,31 +20,26 @@ interface HomePageProps {
 
 const Home: any  = (props: HomePageProps) =>{
   return (
-    <div className="flex flex-col" style={{backgroundColor: '#dedcff'}}>
-      <Navbar />
-
-      <div className="HomePageTopDiv flex justify-between mt-5">
-        <div className="w-1/3 p-4 flex flex-col items-center justify-start">
+    <div className="" style={{backgroundColor: '#ffffff', height: '100vh'}}>
+    <Navbar/>
+    <div className="flex justify-between pt-5 pl-6 pr-6" style={{height: '100vh'}}>
+      <div className="w-1/2">
+        {/**left side */}
+        <div className="flex flex-col items-center justify-start w-full" style={{ flex: 1, height: '34vh' }}>
           <TodayExercise />
         </div>
-        <div className="w-1/3 p-4 flex flex-col items-center justify-start">
-          <History />
-        </div>
-        <div className="w-1/3 p-4 flex flex-col items-center justify-start">
-          <Schedule />
-        </div>
-      </div>
-      <div className="flex justify-between mr-10 mt-20 mb-10">
-        <div className="w-1/2 mt-10">
-          <div className=" flex flex-col p-9 items-center justify-start rounded-xl" style={{ width: '80%', margin: '0 auto', backgroundColor: '#0165e5' }}>
-            <h2 className="text-white mb-3" style={{ fontSize: '1.2rem' }}>Activity Graph:</h2>
+        <div className=" flex flex-col p-5 h-full justify-start rounded-md" style={{ flex: 1, height: '53vh', width: '100%', margin: '0 auto', backgroundColor: '#ffffff', borderColor: '#0165e5', borderWidth: '1px', borderStyle: 'solid', boxShadow: '0px 0px 3px 1px rgba(1, 101, 229, 0.5)' }}>
+            <h2 className="align-left text-gray ml-9 font-semibold mb-2" style={{  }}>Activity Graph:</h2>
             <ActivityGraph />
           </div>
-        </div>
-        <div className="w-1/2 p-5 flex flex-col items-center justify-start">
-          <Comments />
+      </div>
+      <div className="w-1/2 ml-7">
+        {/**right side */}
+        <div className=" flex flex-col items-center justify-start" style={{height: '87vh'}}>
+          <RightComponent />
         </div>
       </div>
+    </div>
     </div>
   );
 }

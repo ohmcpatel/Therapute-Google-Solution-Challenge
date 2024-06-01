@@ -15,8 +15,11 @@ export default function TodayExercise() {
     const [carousel, setCarousel] = useState<Slide[]>([]);
 
     async function fetchData() {
-        const q = query(collection(db, 'todayExercises'));
-        const querySnapshot = await getDocs(q);
+        //fetch document with matching user id
+        const q = query(collection(db, 'todayExercises'), where('uid', '==', 'IDzKazZW3qN1WXOoCOcJv5gquvd2'));
+        const i = await getDocs(q);
+        //get subcollection of that document with today's exercises
+        const querySnapshot = await getDocs(collection(i.docs[0].ref, 'todayExercises'))
         // Convert each DocumentData object to Slide
         const carouselData: Slide[] = querySnapshot.docs.map(doc => {
             const data = doc.data();
@@ -34,8 +37,8 @@ export default function TodayExercise() {
     }, [])
 
     return (
-        <div className="flex flex-col items-center bg-blue p-5 rounded-xl" style={{backgroundColor: '#0165e5'}}>
-            <h2 className="todaysExersices align-center text-white mb-3">Today's Exercises</h2>
+        <div className="flex flex-col bg-blue p-3 w-full rounded-md" style={{backgroundColor: '#ffffff', borderColor: '#0165e5', borderWidth: '1px', borderStyle: 'solid', boxShadow: '0px 0px 3px 1px rgba(1, 101, 229, 0.5)'}}>
+            <h2 className="todaysExersices align-left text-gray mb-2 font-semibold">Today's Exercises</h2>
             <Carousel slides={carousel}/>
         </div>
     );
