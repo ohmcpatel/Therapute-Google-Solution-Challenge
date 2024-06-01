@@ -26,10 +26,10 @@ const Home: any  = (props: HomePageProps) =>{
     <div className="flex flex-row pt-5 pl-4 pr-4" style={{height: '70vh'}}>
       <div className="w-70">
         {/**left side */}
-        <div className="mb-2 flex flex-col items-center justify-start w-full mb-1" style={{ flex: 1, height: '34vh' }}>
+        <div className="mb-2 flex flex-col items-center justify-start w-full mb-4" style={{ flex: 1, height: '32vh' }}>
           <TodayExercise />
         </div>
-        <div className="h-full justify-start rounded-md" style={{ flex: 1, height: '50vh', width: '100%', margin: '0 auto', backgroundColor: '#ffffff', borderColor: '#0165e5', borderWidth: '1px', borderStyle: 'solid', boxShadow: '0px 0px 3px 1px rgba(1, 101, 229, 0.5)' }}>
+        <div className="h-full justify-start rounded-md" style={{ flex: 1, height: '51vh', width: '100%', margin: '0 auto', backgroundColor: '#ffffff', borderColor: '#0165e5', borderWidth: '1px', borderStyle: 'solid', boxShadow: '0px 0px 3px 1px rgba(1, 101, 229, 0.5)' }}>
             <Chart />
           </div>
       </div>
@@ -40,7 +40,7 @@ const Home: any  = (props: HomePageProps) =>{
         </div>
       </div>
     </div>
-     {/* <Footer/>  */}
+     <Footer/> 
     </div>
   );
 }
