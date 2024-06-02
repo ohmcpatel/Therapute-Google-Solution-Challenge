@@ -1,25 +1,19 @@
-import { OpenAI } from 'openai';
-
-
 export async function POST(req: Request){
-  const prompt = await req.json()
+  const prompt = await req.json();
+
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  
 
     try {
-      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const GPTresponse = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'user',
-            content: prompt.prompt,
-          },
-        ],
-        max_tokens: 100,
-      });
+      const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
-      console.log(JSON.stringify(GPTresponse.choices[0].message.content));
+      const result = await model.generateContent(JSON.stringify(prompt));
+      const response = await result.response;
+      const text = response.text();
+      console.log(text);
 
-      return new Response(JSON.stringify(GPTresponse.choices[0].message.content));
+      return new Response(text);
 
     } catch (error) {
       console.error('Error generating response:', error);
