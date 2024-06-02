@@ -1,10 +1,11 @@
 We have kept scalability and ease-of-use for our users in mind while developing Therapute's Frontend. We utilize Next.js and React.js as our main frameworks to help us achieve this goal.
 
-Frontend with Next.js
+**Frontend with Next.js**
 - Server-Side Rendering: Render pages on the server to improve load times
 - Static Site Generation: Pre-generates static pages during build for faster performance
 - API Routes: Implements backend logic allowing seemless integration with frontend
-React.js
+
+**React.js**
 - Component-based Architecture: Improves maintability and scalability
 - Enhances performance by only updating changed parts of the UI.
 
